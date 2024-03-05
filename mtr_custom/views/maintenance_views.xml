@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Maintenance Equipment Inherit View -->
+    <record id="maintenance_request_view_form_inherit" model="ir.ui.view">
+        <field name="name">maintenance.request.view.form.inherit</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page name="checklist_ids" string="Checklist">
+                        <group>
+                            <group>
+                                <field name="name_custom" readonly="1"/>
+                                <field name="vehicle_id" string="Jenis Alat / Kendaraan"/>
+                                <field name="vehicle_type_id" string="Type / Merk"/>
+                            </group>                            
+                            <group>
+                                <field name="no_pol" string="No. Pol / Unit"/>
+                                <field name="estate" string="Estate"/>
+                            </group> 
+                        </group><br/>
+                        <group>
+                            <group>
+                                <field name="service" string="Service Rutin"/>
+                                <field name="engine" string="Engine System"/>
+                                <field name="transmision" string="Transmision System"/>
+                                <field name="differential" string="Differential System"/>
+                                <field name="chasis" string="Chasis System"/>
+                                <field name="electric" string="Electric System"/>
+                                <field name="fuel" string="Fuel System"/>
+                                <field name="steering" string="Steering System"/>
+                                <field name="brake" string="Brake System"/>
+                            </group>
+                            <group>
+                                <field name="cooling" string="Cooling System"/>
+                                <field name="suspension" string="Suspension System"/>
+                                <field name="greasing" string="Greasing"/>
+                                <field name="power" string="Power Train System"/>
+                                <field name="final" string="Final Drive System"/>
+                                <field name="hydroulic" string="Hydroulic System"/>
+                                <field name="carriage" string="Under Carriage"/>
+                                <field name="general" string="General Checking"/>
+                                <field name="others" string="Others"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+            <xpath expr="//sheet/div[1]" position="before">
+                    <div class="oe_button_box" name="button_box">
+                        <button type="object"
+                            name="action_view_repairs"
+                            class="oe_stat_button"
+                            icon="fa-wrench"
+                            attrs="{'invisible': [('repair_count', '=', 0)]}">
+                            <field name="repair_count" widget="statinfo" string="Repairs"/>
+                        </button>
+                    </div>
+                </xpath>
+            <xpath expr="//button[@name='archive_equipment_request']" position="before">
+                <button name="action_create_repair" class="btn btn-primary" type="object" string="Create Repair"/>
+            </xpath>
+            <xpath expr="//field[@name='equipment_id']" position="after">
+                <field name="product_id" string="Product" required="True"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
