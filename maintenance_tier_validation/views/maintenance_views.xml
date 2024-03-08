@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_maintenance_request_filter_inherit_maintenance_hr_equipment_request_view_search" model="ir.ui.view">
+        <field name="name">maintenance.request.select - maintenance_request_tier_validation</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_search" />
+        <field name="arch" type="xml">
+            <filter name="created_by" position="after">
+                <separator />
+                <filter
+                    name="needs_review"
+                    string="Needs my Review"
+                    domain="[('reviewer_ids','in',uid), ('state', 'not in', ['approved'])]"
+                    help="My Maintenance Request to review"
+                />
+                <filter
+                    name="tier_validated"
+                    string="Validated"
+                    domain="[('validated', '=', True)]"
+                    help="Maintenances validated and ready to be confirmed"
+                />
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_maintenance_request_tree_inherit_maintenance_hr_equipment_request_view_tree" model="ir.ui.view">
+        <field name="name">maintenance.request.tree.inherit.maintenance.hr.equipment.request.view.tree</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_tree" />
+        <field name="arch" type="xml">
+            <tree position="inside">
+                <field
+                    name="validation_status"
+                    widget="badge"
+                    optional="hide"
+                    decoration-info="validation_status == 'pending'"
+                    decoration-danger="validation_status == 'rejected'"
+                    decoration-success="validation_status == 'validated'"
+                />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_maintenance_request_form_inherit_maintenance_hr_equipment_request_view_form" model="ir.ui.view">
+        <field name="name">maintenance.request.form.inherit.maintenance.hr.equipment.request.view.form</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='stage_id']" position="after">
+                <field name="state" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,20 @@
+# Visual Studio cache/options directory
+.vs/
+.vscode
+
+# dotfiles
+.*
+!.gitmodules
+!.gitignore
+!.github
+!.mailmap
+!.flake8
+!.isort.cfg
+!.pre-commit-config.yaml
+!.pylintrc
+!.pylintrc-mandatory
+!.ruff.toml
+
+# compiled python files
+*.py[co]
+__pycache__/

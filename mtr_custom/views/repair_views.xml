@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="repair_view_form_inherit" model="ir.ui.view">
+            <field name="name">repair.form.inherit</field>
+            <field name="model">repair.order</field>
+            <field name="inherit_id" ref="repair.view_repair_order_form"/>
+            <field name="arch" type="xml">
+                <field name="tag_ids" position="after">
+                    <field name="maintenance_id"/>
+                </field>
+                <xpath expr="//field[@name='operations']/tree//field[@name='price_subtotal']" position="after">
+                    <field name="remarks" optional="show"/>
+                </xpath>
+                <page name="extra_info" position="inside">
+                    <group string="Vehicle Information">
+                        <group>
+                            <field name="vehicle_id" attrs="{'readonly': [('maintenance_id', '!=', False)]}"/>
+                            <field name="vehicle_type_id"/>
+                            <field name="no_pol"/>
+                        </group>
+                    </group>
+                </page>
+            </field>
+        </record>
+    </data>
+</odoo>

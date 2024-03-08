@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_tier_definition_form_inherit_base_tier_validation_tier_definition_view_form" model="ir.ui.view">
+        <field name="name">tier.definition.form.inherit.base.tier.validation.tier.definition.view.form</field>
+        <field name="model">tier.definition</field>
+        <field name="inherit_id" ref="base_tier_validation.tier_definition_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='approve_sequence']" position="after">
+                <field name="sign_label"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
