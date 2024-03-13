@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_cash_advance_tree" model="ir.ui.view">
+       <field name="name">cash.advance.tree</field>
+       <field name="model">cash.advance</field>
+       <field name="arch" type="xml">
+           <tree string="Cash Advance" decoration-info="state == 'draft'">
+               <field name="company_id" invisible="1"/>               
+               <field name="employee_id" widget="many2one_avatar_employee"/>               
+               <field name="create_date" optional="hide"/>
+               <field name="name"/>
+               <field name="user_id" optional="hide" widget="many2one_avatar_user"/>
+               <field name="company_id" optional="show" groups="base.group_multi_company"/>
+               <field name="activity_ids" widget="list_activity" optional="show" readonly="1"/>
+               <field name="total_amount" optional="show" sum="Total Amount" decoration-bf="True"/>
+               <field name="currency_id" optional="hide"/>               
+               <field name="state" optional="show" decoration-info="state == 'draft'" decoration-success="state in ['submit', 'approve', 'post', 'done']" decoration-danger="state == 'cancel'" widget="badge"/>               
+           </tree>
+       </field>
+   </record>
+   
+   <record id="view_cash_advance_form" model="ir.ui.view">
+       <field name="name">cash.advance.form</field>
+       <field name="model">cash.advance</field>
+       <field eval="25" name="priority"/>
+       <field name="arch" type="xml">
+           <form string="Cash Advance" class="o_expense_sheet">
+           <field name="can_reset" invisible="1"/>
+           <field name="can_approve" invisible="1"/>
+           <field name="company_id" invisible="1"/>
+            <header>
+               <button name="action_submit_cash_advance" states="draft" string="Submit to Manager" type="object" class="oe_highlight o_expense_sheet_submit" data-hotkey="l"/>
+               <button name="approve_cash_advance"
+                       string="Approve"
+                       type="object"
+                       data-hotkey="v"
+                       context="{'validate_analytic': True}"
+                       attrs="{'invisible': ['|', ('can_approve', '=', False), ('state', '!=', 'submit')]}"
+                       class="oe_highlight o_expense_sheet_approve"/>
+               <button name="action_ca_move_create"
+                       string="Post Journal Entries"
+                       type="object"
+                       data-hotkey="y"
+                       class="oe_highlight o_expense_sheet_post"
+                       attrs="{'invisible': [('state', '!=', 'approve')]}"
+                       groups="account.group_account_invoice"/>
+               <button name="action_unpost"
+                       type="object"
+                       data-hotkey="c"
+                       attrs="{'invisible': [('state', '!=', 'post')]}"
+                       string="Reset to Draft"
+                       groups="account.group_account_readonly,account.group_account_invoice"/>
+               <button name="%(hr_expense.hr_expense_refuse_wizard_action)d" states="submit,approve" context="{'hr_expense_refuse_model':'hr.expense.sheet'}" string="Refuse" type="action" groups="hr_expense.group_hr_expense_team_approver" data-hotkey="x" />
+               <button name="reset_expense_ca" string="Reset to Draft" type="object" attrs="{'invisible': ['|', ('can_reset', '=', False), ('state', 'not in', ['submit', 'cancel', 'approve'])]}" data-hotkey="q"/>
+               <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,post,done" force_save="1"/>
+           </header>
+           <sheet>
+               <div class="oe_button_box" name="button_box">
+                   <button name="action_open_account_move"
+                       class="oe_stat_button"
+                       icon="fa-file-text-o"
+                       type="object"
+                       attrs="{'invisible': ['|', ('state', 'not in', ['post', 'done']), ('account_move_id', '=', False)]}"
+                       groups="account.group_account_invoice">
+                       Journal Entry
+                   </button>
+                   <field name="account_move_id" invisible="1"/>                   
+               </div>
+               <field name="payment_state" invisible="True"/>
+               <!-- Paid by Company  -->
+               <widget name="web_ribbon" title="Paid" bg_color="bg-success" attrs="{'invisible': [('payment_state', 'not in', ['paid', 'in_payment', 'partial'])]}"/>               
+               <div class="oe_title">
+                   <label for="name" class="oe_edit_only"/>
+                   <h1>
+                       <field name="name" placeholder="e.g. Trip to NY" readonly="1" force_save="1"/>
+                   </h1>
+               </div>
+               <group>
+                   <group name="employee_details">
+                       <field name="employee_id" context="{'default_company_id': company_id}" widget="many2one_avatar_employee"/>
+                       <field name="total_amount"/>                                              
+                       <field name="bank_journal_id" groups="account.group_account_invoice,account.group_account_readonly" options="{'no_open': True, 'no_create': True}" context="{'default_company_id': company_id}"/>
+                                                                   
+                   </group>
+                   <group>
+                       <field name="company_id" groups="base.group_multi_company"/>
+                       <field name="user_id" widget="many2one_avatar_user"/>
+                       <field name="account_id" groups="account.group_account_invoice,account.group_account_readonly" options="{'no_open': True, 'no_create': True}" context="{'default_company_id': company_id}"/>
+                       <field name="account_credit_id" groups="account.group_account_invoice,account.group_account_readonly" options="{'no_open': True, 'no_create': True}" context="{'default_company_id': company_id}"/>                     
+                   </group>
+               </group>                
+           </sheet>
+	   <div class="o_attachment_preview"/>
+	        <div class="oe_chatter">
+	            <field name="message_follower_ids"/>
+	            <field name="activity_ids"/>
+	            <field name="message_ids"/>
+	        </div>
+	        </form>
+	    </field>
+	</record>
+	
+	<record id="action_cash_advance_views" model="ir.actions.act_window">
+       <field name="name">Cash Advance</field>
+       <field name="res_model">cash.advance</field>
+       <field name="view_mode">tree,form,activity</field>       
+       <field name="domain">[('state', '!=', 'cancel')]</field>       
+       <field name="help" type="html">
+         <p class="o_view_nocontent_smiling_face">
+           No cash advance request report found. Let's create one!
+         </p><p>
+           Once you have created your cash advance, submit it to your manager who will validate it.
+         </p>
+       </field>
+   </record>
+  
+	<record id="view_account_journal_form_cash_adv" model="ir.ui.view">
+		<field name="name">account.account.ca</field>
+	    <field name="model">account.journal</field>
+	    <field name="inherit_id" ref="account.view_account_journal_form"/>
+	    <field name="arch" type="xml">
+	    	<xpath expr="//field[@name='type']" position="after">
+	    		<field name="is_report_cash_advance"/>
+	    	</xpath>
+			<xpath expr="//page[@name='advanced_settings']" position="before">
+				<page string="Cash Advance Settings">
+					<group string="Cash Advance Information">
+						<field name="is_cash_advance"/>
+						<field name="account_ca_debit"/>
+						<field name="account_ca_credit"/>
+						<field name="account_ca_lpj"/>
+					</group>
+				</page>				                				               
+			</xpath>                
+	    </field>
+	</record>	 	 
+   
+   	   	
+</odoo>
