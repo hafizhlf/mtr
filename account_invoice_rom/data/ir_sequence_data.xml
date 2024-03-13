@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <record id="sequence_account_move_seq" model="ir.sequence">
+            <field name="name">Account Move sequence</field>
+            <field name="code">account.move</field>
+            <field name="suffix">/INV-MHL/%(rom_month)s/%(year)s</field>
+            <field name="padding">4</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+        
+        <record id="sequence_account_journal_kk_seq" model="ir.sequence">
+            <field name="name">Journal Kas Keluar sequence</field>
+            <field name="code">account.journal.1</field>
+            <field name="prefix">%(year)s%(month)s%(day)s/MHL/KK/</field>
+            <field name="padding">4</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+        
+        <record id="sequence_account_journal_km_seq" model="ir.sequence">
+            <field name="name">Journal Kas Masuk sequence</field>
+            <field name="code">account.journal.2</field>
+            <field name="prefix">%(year)s%(month)s%(day)s/MHL/KM/</field>
+            <field name="padding">4</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+        
+        <record id="sequence_account_journal_bk_seq" model="ir.sequence">
+            <field name="name">Journal Bank Keluar sequence</field>
+            <field name="code">account.journal.3</field>
+            <field name="prefix">%(year)s%(month)s%(day)s/MHL/BK/</field>
+            <field name="padding">4</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+        
+        <record id="sequence_account_journal_bm_seq" model="ir.sequence">
+            <field name="name">Journal Bank Masuk sequence</field>
+            <field name="code">account.journal.4</field>
+            <field name="prefix">%(year)s%(month)s%(day)s/MHL/BM/</field>
+            <field name="padding">4</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+       
+    </data>
+</odoo>
