@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <template id="report_purchase_request_bppb">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                    	<div style="width: 10%;float: left;">
+    						<img src='/web/binary/company_logo' style="width:100%"/>
+						</div>                        
+                        <h3>
+                            BON PERMINTAAN DAN PEMAKAIAN BARANG <br/>STOK                            
+                        </h3>                                               
+                        <div class="row mt32 mb32">
+                            <div class="col-auto">
+                                <strong>Dept : </strong> <span t-field="o.company_id.name" />
+                                <br/>
+                                <strong>Tanggal : </strong>
+                            </div>                                                       
+                        </div>               
+                        <br/>         
+                        <t t-if="o.line_ids">                            
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                    	<th>
+                                            <strong>Item Code</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Nama Barang/Uraian</strong>
+                                        </th>                                        
+                                        <th class="text-center">
+                                            <strong>Satuan</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>Diminta</strong>
+                                        </th>
+                                        
+                                        <th>
+                                            <strong>Harga per item</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Total Harga</strong>
+                                        </th>                                        
+                                    </tr>
+                                </thead>
+                                <tbody>                                	
+                                    <tr t-foreach="o.line_ids" t-as="line_id">                                    	                                        
+                                        <td class="text-right">
+                                            <span t-field="line_id.product_id.code" />
+                                        </td>
+                                        <td>
+                                            <span t-field="line_id.name" />
+                                        </td>                                                                               
+                                        <td>
+                                            <span t-field="line_id.product_uom_id.name" />
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span t-field="line_id.product_qty" />
+                                        </td>                                        
+                                        <td style="text-align:right;">
+                                            <span t-field="line_id.estimated_cost" />
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span t-field="line_id.estimated_total_cost" />
+                                        </td>                                                                                                      
+                                    </tr>
+                                    <tr style="text-align:right;">
+                                    	<td t-att-colspan="5">TOTAL</td>
+                                    	<td><span t-field="o.estimated_cost" /></td>
+                                    </tr>                                    
+                                </tbody>
+                            </table>
+                        </t>
+                        <br/><br/><br/> 
+                                              
+						
+						<div style="width: 20%;float: left; text-align: center;">
+							<span>Diminta oleh,</span>
+							<br/><br/><br/><br/><br/>
+							<span style="border-bottom: 2px solid black;"><strong>M. AULIA SILANGIT</strong></span><br/>
+							<span>Mandor</span>
+						</div>
+						<div style="width: 20%;float: left; text-align: center;">
+							<span>Dikeluarkan oleh,</span>
+							<br/><br/><br/><br/><br/>
+							<span style="border-bottom: 2px solid black;"><strong>EKA SUSI HANDAYANI</strong></span><br/>
+							<span>Krani Admin</span>
+						</div>
+						<div style="width: 20%;float: left; text-align: center;">
+							<span>Diketahui oleh,</span>
+							<br/><br/><br/><br/><br/>
+							<span style="border-bottom: 2px solid black;"><strong>FAISHAL MIFTAHUL HUDA</strong></span><br/>
+							<span>Asst. Mill Composting</span>
+						</div>
+						<div style="width: 20%;float: left; text-align: center;">
+							<span>Disetujui oleh,</span>
+							<br/><br/><br/><br/><br/><br/><br/>
+							<span style="border-bottom: 2px solid black;"><strong>DADAN RAMDANI</strong></span><br/>
+							<span>Direktur</span>
+						</div>
+						<div style="width: 20%;float: left; text-align: center;">
+							<span>Diterima oleh,</span>
+							<br/><br/><br/><br/><br/>
+							<span>..........................................</span>
+						</div>
+					
+												                                               
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

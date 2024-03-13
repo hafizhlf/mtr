@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+	<record id="paperformat_ppp_format" model="report.paperformat">
+		<field name="name">PPP Format</field>
+		<field name="default" eval="True"/>
+		<field name="format">A4</field>
+		<field name="page_height">0</field>
+		<field name="page_width">0</field>
+		<field name="orientation">Portrait</field>
+		<field name="margin_top">10</field>
+		<field name="margin_bottom">15</field>
+		<field name="margin_left">7</field>
+		<field name="margin_right">7</field>
+		<field name="header_line" eval="False"/>
+		<field name="header_spacing">35</field>
+		<field name="dpi">90</field>
+	</record>
+	<record id="paperformat_bppb_landscape" model="report.paperformat">
+		<field name="name">BPPB Landscape</field>
+		<field name="default" eval="True"/>
+		<field name="format">A4</field>
+		<field name="page_height">0</field>
+		<field name="page_width">0</field>
+		<field name="orientation">Landscape</field>
+		<field name="margin_top">10</field>
+		<field name="margin_bottom">15</field>
+		<field name="margin_left">7</field>
+		<field name="margin_right">7</field>
+		<field name="header_line" eval="False"/>
+		<field name="header_spacing">35</field>
+		<field name="dpi">90</field>
+	</record>
+
+    <record id="action_report_purchase_requests" model="ir.actions.report">
+        <field name="name">Purchase Request</field>
+        <field name="binding_model_id" ref="model_purchase_request" />
+        <field name="model">purchase.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">purchase_request.report_purchase_request</field>
+        <field name="report_file">purchase_request.report_purchase_request</field>
+    </record>
+    
+    <record id="action_report_p3" model="ir.actions.report">
+        <field name="name">PPP</field>
+        <field name="binding_model_id" ref="model_purchase_request" />
+        <field name="model">purchase.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">purchase_request.report_purchase_request_p3</field>
+        <field name="report_file">purchase_request.report_purchase_request_p3</field>
+        <field name="paperformat_id" ref="purchase_request.paperformat_ppp_format"/>
+    </record>
+    
+    <record id="action_report_bppb" model="ir.actions.report">
+        <field name="name">BPPB</field>
+        <field name="binding_model_id" ref="model_purchase_request" />
+        <field name="model">purchase.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">purchase_request.report_purchase_request_bppb</field>
+        <field name="report_file">purchase_request.report_purchase_request_bppb</field>
+        <field name="paperformat_id" ref="purchase_request.paperformat_bppb_landscape"/>        
+    </record>
+</odoo>

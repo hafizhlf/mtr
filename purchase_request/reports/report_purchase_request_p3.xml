@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <template id="report_purchase_request_p3">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                    	<div style="width: 10%;float: left;">
+    						<img src='/web/binary/company_logo' style="width:100%"/>
+						</div>                        
+                        <h2 style="text-align:center;">
+                            PERMINTAAN PEMBELIAN PENGADAAN                            
+                        </h2>
+                        <p style="text-align:center;">
+                        	Number : <span t-field="o.name" /><br/>
+                        	Date : <span t-field="o.date_start" />                        
+                        </p>                        
+                        <div class="row mt32 mb32">
+                            <div class="col-auto">
+                                <strong>Company : </strong> <span t-field="o.company_id.name" />
+                                <br/>
+                                <strong>Dept Charge A/c : </strong>
+                            </div>                                                       
+                        </div>               
+                        <br/>         
+                        <t t-if="o.line_ids">                            
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                    	<th>
+                                            <strong>No</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Item Code</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>Order Quantity</strong>
+                                        </th>
+                                        <th class="text-center" groups="uom.group_uom">
+                                            <strong>UoM</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Description ( Specification/Brand )</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Price est.</strong>
+                                        </th>
+                                        <th>
+                                            <strong>Total</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>Required Date</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>Monthly Usage</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>Quantity Stock</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                	<t t-set="counter" t-value="0"/>
+                                    <tr t-foreach="o.line_ids" t-as="line_id">
+                                    	<t  t-set="counter" t-value="counter + 1"/>
+                                        <td>
+                                            <t t-esc="counter"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line_id.product_id.code" />
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span t-field="line_id.product_qty" />
+                                        </td>                                        
+                                        <td>
+                                            <span t-field="line_id.product_uom_id.name" />
+                                        </td>
+                                        <td>
+                                            <span t-field="line_id.name" />
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span t-field="line_id.estimated_cost" />
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span t-field="line_id.estimated_total_cost" />
+                                        </td>
+                                        <td class="text-right">                                            
+                                        </td>
+                                        <td class="text-right">                                            
+                                        </td>                        
+                                        <td class="text-right">                                            
+                                        </td>                                                                
+                                    </tr>
+                                    <tr style="text-align:right;">
+                                    	<td t-att-colspan="6">TOTAL</td>
+                                    	<td><span t-field="o.estimated_cost" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>                        
+                        <span>Kebutuhan Compositing</span><br/><br/>
+                        <span>No. Reff BPPB Stok : <span t-field="o.origin" /></span><br/>
+                        <div style="float:left;">                        	
+                        	<p>Requested by,</p>
+                        	<br/><br/><br/>
+                        	<span t-field="o.requested_by.name" />
+                        </div>                        
+                        <div style="float:right; width: 30%;">                        	
+                        	<p style="text-align: center;">Approved by,</p>                        	
+                        	<div style="float:right; width: 50%;" t-foreach="o.approval_users_ids" t-as="approval_line">
+                        		<br/>
+                        		<br/>
+                        		<br/>
+                        		<span style="text-decoration: underline;" t-field="approval_line.user_id.name" />
+                        		<br/>
+                        		<span t-field="approval_line.user_id_position" />
+                        	</div>
+                        </div>
+                        <div class="oe_structure" />
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
