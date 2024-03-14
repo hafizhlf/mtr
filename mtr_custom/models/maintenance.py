@@ -47,3 +47,5 @@ class MaintenanceRequest(models.Model):
     repair_ids = fields.One2many(comodel_name='repair.order', inverse_name='maintenance_id', string='Repair')
     product_id = fields.Many2one(comodel_name='product.product', string='Product')
     repair_count = fields.Integer(string="Custom Repair Count", compute="_compute_custom_repair_count")
+    maintenance_user_ids = fields.Many2many(comodel_name='res.users', related='maintenance_team_id.member_ids')
+    maintenance_user_id = fields.Many2one(comodel_name='res.users', string='Mechanic User')

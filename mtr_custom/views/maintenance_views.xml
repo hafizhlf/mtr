@@ -6,6 +6,10 @@
         <field name="model">maintenance.request</field>
         <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
         <field name="arch" type="xml">
+            <field name="maintenance_team_id" position="after">
+                <field name="maintenance_user_ids" invisible="True"/>
+                <field name="maintenance_user_id" string="Mechanic" domain="[('id', 'in', maintenance_user_ids)]"/>
+            </field>
             <xpath expr="//sheet" position="inside">
                 <notebook>
                     <page name="checklist_ids" string="Checklist">
@@ -60,9 +64,6 @@
                 </xpath>
             <xpath expr="//button[@name='archive_equipment_request']" position="before">
                 <button name="action_create_repair" class="btn btn-primary" type="object" string="Create Repair"/>
-            </xpath>
-            <xpath expr="//field[@name='equipment_id']" position="after">
-                <field name="product_id" string="Product" required="True"/>
             </xpath>
 
         </field>

@@ -1,5 +1,6 @@
-from datetime import date, datetime, timedelta
+from datetime import timedelta
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class AccountMove(models.Model):
@@ -15,6 +16,12 @@ class AccountMove(models.Model):
         ('confirm', 'Confirm'),
         ('cancel', 'Cancel'),
         ], string='Approval Status', default="draft", copy=False, index=True)
+
+    @api.constrains('stage_id')
+    def _constraint_stage_id(self):
+        for rec in self:
+            if rec.state != 'confirm':
+                raise ValidationError(_("You can only change the stage when the request have been approved."))
 
     def _compute_state(self):
         for rec in self:
