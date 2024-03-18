@@ -1,8 +1,9 @@
-from datetime import date, datetime, timedelta
+from datetime import timedelta
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
-class AccountMove(models.Model):
+class MaintenanceRequest(models.Model):
     _name = "maintenance.request"
     _inherit = ["maintenance.request", "tier.validation"]
     _state_from = ["draft", "pending"]
@@ -15,6 +16,12 @@ class AccountMove(models.Model):
         ('confirm', 'Confirm'),
         ('cancel', 'Cancel'),
         ], string='Approval Status', default="draft", copy=False, index=True)
+
+    @api.constrains('stage_id')
+    def _constraint_stage_id(self):
+        for rec in self:
+            if rec.state != 'confirm':
+                raise ValidationError(_("You can only change the stage when the request have been approved."))
 
     def _compute_state(self):
         for rec in self:
@@ -51,9 +58,18 @@ class AccountMove(models.Model):
         company = self.env.company
         odoobot = self.env.ref("base.partner_root")
         context = {'skip_validation_check': True}
+        resource_calendar = company.resource_calendar_id
 
-        if company.auto_approval_time >= 1:
-            now = fields.Datetime.now()
+        if not resource_calendar:
+            return
+        
+        work_days = self._get_work_days(resource_calendar)
+        if not work_days or company.auto_approval_time < 1:
+            return
+        
+        now = fields.Datetime.now()
+        schedule_date = fields.Datetime.from_string(now)
+        if schedule_date.strftime('%w') in str(work_days):
             request_date = now - timedelta(days=company.auto_approval_time)
             orders_to_confirm = self.search([('write_date', '<=', request_date)])
 
@@ -61,3 +77,12 @@ class AccountMove(models.Model):
                 order.with_context(context).write({'state': 'confirm'})
                 message = _("Maintenance request has been automatically approved by %s as the maintenance record exceeds %s days.") % (odoobot.display_name, company.auto_approval_time)
                 order.message_post(body=message)
+
+    def _get_work_days(self, resource_calendar):
+        work_days = [
+            int(attendance.dayofweek) + 1
+            for attendance in resource_calendar.attendance_ids
+            if isinstance(attendance.dayofweek, str) and attendance.dayofweek.isdigit()
+        ]
+        work_days = [day % 7 for day in work_days]
+        return list(set(work_days))
