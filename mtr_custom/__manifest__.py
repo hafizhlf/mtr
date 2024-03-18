@@ -25,6 +25,7 @@
         'views/fleet_vehicle_views.xml',
         'views/maintenance_views.xml',
         'views/repair_views.xml',
+        'views/res_config_settings_views.xml',
         # report
         'report/maintenance_report.xml',
         'report/repair_report.xml',
