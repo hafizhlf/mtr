@@ -1,15 +1,21 @@
 from odoo import api, fields, models, tools, _
+from odoo.exceptions import ValidationError
 
 
 class MaintenanceRequest(models.Model):
     _inherit = "maintenance.request"
 
     def action_create_repair(self):
+        self.ensure_one()
+
         self.env['repair.order'].sudo().create({
             'maintenance_id': self.id,
             'product_id': self.product_id.id,
             'vehicle_id': self.vehicle_id.id,
         })
+
+        if len(self.repair_ids) >= 2:
+            raise ValidationError(_("You can only create one repair document per maintenance."))
 
     def _default_product_id(self):
         return self.env.company.repair_product_id.id
