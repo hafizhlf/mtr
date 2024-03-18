@@ -11,6 +11,9 @@ class MaintenanceRequest(models.Model):
             'vehicle_id': self.vehicle_id.id,
         })
 
+    def _default_product_id(self):
+        return self.env.company.repair_product_id.id
+
     def action_view_repairs(self):
         action = self.env.ref('repair.action_repair_order_tree').read()[0]
         action['domain'] = [('maintenance_id', '=', self.id)]
@@ -45,7 +48,7 @@ class MaintenanceRequest(models.Model):
     general = fields.Boolean(string='General Checking')
     others = fields.Boolean(string='Others')
     repair_ids = fields.One2many(comodel_name='repair.order', inverse_name='maintenance_id', string='Repair')
-    product_id = fields.Many2one(comodel_name='product.product', string='Product')
+    product_id = fields.Many2one(comodel_name='product.product', default=_default_product_id, string='Product')
     repair_count = fields.Integer(string="Custom Repair Count", compute="_compute_custom_repair_count")
     maintenance_user_ids = fields.Many2many(comodel_name='res.users', related='maintenance_team_id.member_ids')
     maintenance_user_id = fields.Many2one(comodel_name='res.users', string='Mechanic User')
