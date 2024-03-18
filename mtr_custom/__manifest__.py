@@ -17,10 +17,15 @@
         'sign',
     ],
     'data': [
+        # data
         'data/sequence.xml',
+        # security
         'security/security.xml',
+        # views
+        'views/fleet_vehicle_views.xml',
         'views/maintenance_views.xml',
         'views/repair_views.xml',
+        # report
         'report/maintenance_report.xml',
         'report/repair_report.xml',
     ],
