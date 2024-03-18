@@ -20,7 +20,8 @@ class MaintenanceRequest(models.Model):
     @api.constrains('stage_id')
     def _constraint_stage_id(self):
         for rec in self:
-            if rec.state != 'confirm':
+
+            if rec.state == 'pending':
                 raise ValidationError(_("You can only change the stage when the request have been approved."))
 
     def _compute_state(self):
