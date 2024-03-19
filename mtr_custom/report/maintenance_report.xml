@@ -2,8 +2,8 @@
 <odoo>
     <data>
         <template id="maintenance_report_template">
-            <t t-call="web.html_container">                                    
-                <t t-foreach="docs" t-as="doc">                    
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
                     <t t-call="web.basic_layout">
                         <div class="header" style="border:1px solid black;">
                             <div class="row" style="margin:15px;">
@@ -394,32 +394,32 @@
                                                     </td>
                                                 </t>
                                             </t>
-                                        </tr>                              
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
-                            <div style="border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;margin-top:-20px;">
-                                <div style="margin:15px;"><br/>
-                                    <div>Diisi oleh Mekanik :</div>
-                                    <div>A. Perbaikan (Repairing) :</div><br/>
-                                    <div style="border-bottom:2px dotted black;"></div><br/>
-                                    <div style="border-bottom:2px dotted black;"></div><br/><br/>
-
-                                    <div>B. Pergantian Sparepart:</div><br/>
-                                    <table class="tables" style="width:100%;font-size: 14px;">
-                                        <thead>
-                                            <tr>
-                                                <td class="tds" width="5%">No</td>
-                                                <td class="tds" width="25%">Nama Spare Part</td>
-                                                <td class="tds" width="25%">Part Number</td>
-                                                <td class="tds" width="5%">Jumlah</td>
-                                                <td class="tds" width="40%">Keterangan</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <t t-set="no" t-value="1"/>
-                                            <t t-foreach="doc.repair_ids" t-as="repairs">                               
-                                                <t t-foreach="repairs.operations" t-as="line">                               
+                            <t t-foreach="doc.repair_ids" t-as="repair">
+                                <div style="border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;margin-top:-20px;">
+                                    <div style="margin:15px;"><br/>
+                                        <div>Diisi oleh Mekanik :</div>
+                                        <div>A. Perbaikan (Repairing) :</div><br/>
+                                        <div style="border-bottom:2px dotted black;"></div><br/>
+                                        <div style="border-bottom:2px dotted black;"></div><br/><br/>
+    
+                                        <div>B. Pergantian Sparepart:</div><br/>
+                                        <table class="tables" style="width:100%;font-size: 14px;">
+                                            <thead>
+                                                <tr>
+                                                    <td class="tds" width="5%">No</td>
+                                                    <td class="tds" width="25%">Nama Spare Part</td>
+                                                    <td class="tds" width="25%">Part Number</td>
+                                                    <td class="tds" width="5%">Jumlah</td>
+                                                    <td class="tds" width="40%">Keterangan</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-set="no" t-value="1"/>
+                                                <t t-foreach="repair.operations" t-as="line">
                                                     <tr>
                                                         <td class="tds" width="5%"><t t-esc="no"/></td>
                                                         <td class="tds" width="25%"><t t-esc="line.product_id.name"/></td>
@@ -429,33 +429,40 @@
                                                         <t t-set="no" t-value="no+1"/>
                                                     </tr>
                                                 </t>
-                                            </t>
-                                        </tbody>
-                                    </table><br/>
-                                    <div style="page-break-inside: avoid;">
-                                        <div>Tanggal : .......................</div><br/>
-                                        <table style="width:100%;font-size: 16px;">
-                                            <tr>
-                                                <td width="32%"><center>Dikerjakan</center></td>
-                                                <td width="32%"><center>Diperiksa</center></td>
-                                                <td width="32%"><center>Diketahui</center></td>
-                                            </tr>
-                                        </table><br/><br/><br/><br/>
-                                        <table style="width:100%;font-size: 16px;">
-                                            <tr>
-                                                <td width="32%"><center>(_____________________)</center></td>
-                                                <td width="32%"><center>(_____________________)</center></td>
-                                                <td width="32%"><center>(_____________________)</center></td>
-                                            </tr>  
-                                            <tr>
-                                                <td width="32%"><center>Mekanik</center></td>
-                                                <td width="32%"><center>Kepala Mekanik</center></td>
-                                                <td width="32%"><center>Operations SPV</center></td>
-                                            </tr>                            
-                                        </table>
+                                            </tbody>
+                                        </table><br/>
+                                        <div style="page-break-inside: avoid;">
+                                            <div>Tanggal : .......................</div><br/>
+                                            <table style="width:100%;font-size: 16px;">
+                                                <tr>
+                                                    <td width="32%"><center>Dikerjakan</center></td>
+                                                    <td width="32%"><center>Diperiksa</center></td>
+                                                    <td width="32%"><center>Diketahui</center></td>
+                                                </tr>
+                                            </table><br/><br/><br/><br/>
+                                            <table style="width:100%;font-size: 16px;">
+                                                <tr>
+                                                    <t t-if="repair.state != 'done'">
+                                                        <td width="32%"><center>(_____________________)</center></td>
+                                                        <td width="32%"><center>(_____________________)</center></td>
+                                                        <td width="32%"><center>(_____________________)</center></td>
+                                                    </t>
+                                                    <t t-else="">
+                                                        <td width="32%"><center><div t-esc="repair.user_id.employee_id.barcode" t-options="{'widget': 'barcode', 'symbology': 'QR', 'width': 600, 'height': 600, 'humanreadable': 1, 'img_style': 'width:120px; height:120px'}"/></center></td>
+                                                        <td width="32%"><center><div t-esc="repair.approver_1_id.employee_id.barcode" t-options="{'widget': 'barcode', 'symbology': 'QR', 'width': 600, 'height': 600, 'humanreadable': 1, 'img_style': 'width:120px; height:120px'}"/></center></td>
+                                                        <td width="32%"><center><div t-esc="repair.approver_2_id.employee_id.barcode" t-options="{'widget': 'barcode', 'symbology': 'QR', 'width': 600, 'height': 600, 'humanreadable': 1, 'img_style': 'width:120px; height:120px'}"/></center></td>
+                                                    </t>
+                                                </tr>  
+                                                <tr>
+                                                    <td width="32%"><center>Mekanik</center></td>
+                                                    <td width="32%"><center><t t-out="repair.approver_1_label or 'Kepala Mekanik'"/></center></td>
+                                                    <td width="32%"><center><t t-out="repair.approver_2_label or 'Operations SPV'"/></center></td>
+                                                </tr>                            
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </t>
                         </div>
                     </t>
                 </t>
