@@ -13,11 +13,17 @@
                     <field name="remarks" optional="show"/>
                 </xpath>
                 <page name="extra_info" position="inside">
-                    <group string="Vehicle Information">
-                        <group>
+                    <group>
+                        <group string="Vehicle Information">
                             <field name="vehicle_id" attrs="{'readonly': [('maintenance_id', '!=', False)]}"/>
                             <field name="vehicle_type_id"/>
                             <field name="no_pol"/>
+                        </group>
+                        <group string="Approver Information">
+                            <field name="approver_1_id" />
+                            <field name="approver_1_label" default="Kepala Mekanik"/>
+                            <field name="approver_2_id" />
+                            <field name="approver_2_label" default="Operations SPV"/>
                         </group>
                     </group>
                 </page>
