@@ -361,7 +361,7 @@
                                     <div>Tanggal : <t t-out="doc.request_date" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/></div>
                                     <table style="width:100%;font-size: 14px;">
                                         <tr>
-                                            <t t-foreach="doc.review_ids" t-as="review">
+                                            <t t-foreach="doc.review_ids.sorted(key=lambda x: x.sequence)" t-as="review">
                                                 <t t-if="review.status == 'approved'">
                                                     <td width="32%">
                                                         <center>
@@ -374,7 +374,7 @@
                                     </table><br/>
                                     <table style="width:100%;font-size: 14px;">
                                         <tr>
-                                            <t t-foreach="doc.review_ids" t-as="review">
+                                            <t t-foreach="doc.review_ids.sorted(key=lambda x: x.sequence)" t-as="review">
                                                 <t t-if="review.status == 'approved'">
                                                     <td width="32%">
                                                         <center>
@@ -385,7 +385,7 @@
                                             </t>
                                         </tr> 
                                         <tr>
-                                            <t t-foreach="doc.review_ids" t-as="review">
+                                            <t t-foreach="doc.review_ids.sorted(key=lambda x: x.sequence)" t-as="review">
                                                 <t t-if="review.status == 'approved'">
                                                     <td width="32%">
                                                         <center>
