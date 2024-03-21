@@ -358,7 +358,7 @@
                                     </table><br/>
                                     <div>Uraikan Singkat Masalah / Kerusakan</div>
                                     <div><t t-esc="doc.description"/></div>
-                                    <div>Tanggal : .......................</div>
+                                    <div>Tanggal : <t t-out="doc.request_date" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/></div>
                                     <table style="width:100%;font-size: 14px;">
                                         <tr>
                                             <t t-foreach="doc.review_ids" t-as="review">
@@ -378,7 +378,7 @@
                                                 <t t-if="review.status == 'approved'">
                                                     <td width="32%">
                                                         <center>
-                                                            (_____________________)
+                                                            ( <t t-out="review.todo_by or '_____________________'"/> )
                                                         </center>
                                                     </td>
                                                 </t>
