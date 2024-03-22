@@ -8,7 +8,9 @@
     'data': [                
         'data/ir_sequence_data.xml',
         'data/ir.model.access.csv',
+        'reports/report_hr_expense_custom.xml',        
         'views/cash_advance_views.xml',
-        'views/hr_expense_views.xml',                        
+        'views/hr_expense_views.xml',  
+        'views/hr_expense_report.xml',                      
     ],    
 }

@@ -87,6 +87,8 @@ class CashAdvance(models.Model):
         
     account_move_id = fields.Many2one('account.move', string='Journal Entry', ondelete='restrict', copy=False, readonly=True)
     
+    desc = fields.Text(string="Description")
+    
     @api.depends('employee_id')
     def _compute_can_reset(self):
         is_expense_user = self.user_has_groups('hr_expense.group_hr_expense_team_approver')
@@ -107,6 +109,9 @@ class CashAdvance(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code('cash.advance')                                    
         
         return super(CashAdvance, self).create(vals_list)
+    
+    def action_reject_cash_advance(self):        
+        self.write({'state': 'cancel'})
     
     def action_submit_cash_advance(self):
         self.write({'state': 'submit'})        

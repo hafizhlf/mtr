@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+        <record id="group_bypass_multiapproval" model="res.groups">
+            <field name="name">Bypass Multi Approval</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>        
+    </data>
+</openerp>

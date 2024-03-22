@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018-2019 ForgeFlow, S.L.
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <template id="report_hr_expense_custom">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure" />
+                        <h2 class="font-weight-bold text-center">                        	
+                            Payment Request                            
+                        </h2>
+                        <div class="table-responsive">
+	                        <table class="table table-borderless">
+	                        	<tbody>
+		                            <tr>
+		                                <td>No Transaksi</td>
+		                                <td>:</td>
+		                                <td><span t-field="o.number"/></td>	                                                               
+		                            </tr>
+		                            <tr>
+		                                <td>Departemen</td>
+		                                <td>:</td>
+		                                <td><span t-field="o.employee_id.department_id"/></td>	                                                               
+		                            </tr>
+		                            <tr>
+		                                <td>Tanggal</td>
+		                                <td>:</td>
+		                                <td><span t-field="o.date"/></td>	                                                               
+		                            </tr>
+		                            <tr>
+		                                <td>Dibayar Kpd</td>
+		                                <td>:</td>
+		                                <td><span t-field="o.employee_id"/></td>	                                                               
+		                            </tr>
+		                            <tr>
+		                                <td>Terbilang</td>
+		                                <td>:</td>
+		                                <td><span t-field="o.amount_string"/></td>	                                                               
+		                            </tr>
+		                            <tr>
+		                                <td>Keterangan</td>
+		                                <td>:</td>
+		                                <td><span t-field="o.name"/></td>	                                                               
+		                            </tr>
+		                            <tr>
+		                                <td>Diajukan oleh</td>
+		                                <td>:</td>
+		                                <td><span t-field="o.create_uid"/></td>	                                                               
+		                            </tr>		                            	                           
+	                            </tbody>
+	                        </table>
+	                        <table class="table table-borderless">
+	                        	<tr>
+									<td><span style="color:red;">Pengajuan tidak menyertakan RKB</span> / Non RKB</td>	                                	                                                              
+								</tr>
+	                        </table>    
+						</div>
+                        <table class="table table-condensed text-center">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <strong>VERIF 1</strong>
+                                    </th>
+                                    <th>
+                                        <strong>Persetujuan 1</strong>
+                                    </th>
+                                    <th>
+                                        <strong>Persetujuan 2</strong>
+                                    </th>
+                                    <th>
+                                        <strong>Persetujuan 3</strong>
+                                    </th>
+                                    <th style="background:white;">
+                                        <strong>Persetujuan 4</strong>
+                                    </th>                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+	                            <tr style="height:150px;">
+	                                <td></td>
+	                                <td></td>
+	                                <td></td>
+	                                <td></td>
+	                                <td style="background:white;"></td>                                
+	                            </tr>
+	                            <tr>
+	                                <td class="font-weight-bold">FEBRI ATTESA</td>
+	                                <td class="font-weight-bold">RIZKI AMELIA LUBIS</td>
+	                                <td class="font-weight-bold">F AGUS SUSILO</td>
+	                                <td class="font-weight-bold">ADRIAL</td>
+	                                <td style="background:white;" class="font-weight-bold">ADRIAL</td>                                
+	                            </tr>
+	                            <tr>
+	                                <td>-</td>
+	                                <td>-</td>
+	                                <td>-</td>
+	                                <td>-</td>
+	                                <td>-</td>                                
+	                            </tr>
+                            </tbody>
+                        </table>                        
+                        <div class="oe_structure" />
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

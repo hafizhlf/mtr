@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	<record id="view_bw_approval_user_bw_tree" model="ir.ui.view">
+	    <field name="name">approval.user.configuration.tree.views</field>
+	    <field name="model">approval.user.configuration</field>
+	    <field name="arch" type="xml">
+			<tree string="Apporval User Configuration">
+                <field name="name" />                
+				<field name="domain_id"/>				
+            </tree>
+	    </field>
+	</record>
+
+	<record id="view_bw_approval_user_configuration_form" model="ir.ui.view">
+        <field name="name">approval.user.configuration.form</field>
+        <field name="model">approval.user.configuration</field>
+        <field name="arch" type="xml">
+            <form string="Approval User Configuration">
+			   <sheet>
+				   <group>
+						<field name="name" />											
+						<field name="domain_id"/>
+						<field name="type"/>
+						<field name="approval_user_ids">
+						<tree editable="bottom" string="Approvals User">
+							<field name="sequence" widget="handle"/>
+							<field name="user_id"/>
+							<field name="user_id_position"/>
+						</tree>
+						</field>
+				   </group>
+			   </sheet>
+			</form>
+		</field>
+	</record>
+
+	<record model="ir.actions.act_window" id="menu_approval_user_config">
+		<field name="name">Approval User Configuration</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">approval.user.configuration</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+	
+	<menuitem id="menu_bac_config_setting" sequence="1" parent="base.menu_custom" action="menu_approval_user_config"/>
+
+</odoo>
