@@ -54,8 +54,8 @@
     
     <record id="action_report_bppb" model="ir.actions.report">
         <field name="name">BPPB</field>
-        <field name="binding_model_id" ref="model_purchase_request" />
-        <field name="model">purchase.request</field>
+        <field name="binding_model_id" ref="model_bon_request" />
+        <field name="model">bon.request</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">purchase_request.report_purchase_request_bppb</field>
         <field name="report_file">purchase_request.report_purchase_request_bppb</field>

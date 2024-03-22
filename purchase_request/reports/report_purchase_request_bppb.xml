@@ -75,33 +75,32 @@
                             </table>
                         </t>
                         <br/><br/><br/> 
-                                              
-						
-						<div style="width: 20%;float: left; text-align: center;">
+                                              						
+						<div name="1" style="width: 20%;float: left; text-align: center;">
 							<span>Diminta oleh,</span>
 							<br/><br/><br/><br/><br/>
 							<span style="border-bottom: 2px solid black;"><strong>M. AULIA SILANGIT</strong></span><br/>
 							<span>Mandor</span>
 						</div>
-						<div style="width: 20%;float: left; text-align: center;">
+						<div name="2" style="width: 20%;float: left; text-align: center;">
 							<span>Dikeluarkan oleh,</span>
 							<br/><br/><br/><br/><br/>
 							<span style="border-bottom: 2px solid black;"><strong>EKA SUSI HANDAYANI</strong></span><br/>
 							<span>Krani Admin</span>
 						</div>
-						<div style="width: 20%;float: left; text-align: center;">
+						<div name="3" style="width: 20%;float: left; text-align: center;">
 							<span>Diketahui oleh,</span>
 							<br/><br/><br/><br/><br/>
 							<span style="border-bottom: 2px solid black;"><strong>FAISHAL MIFTAHUL HUDA</strong></span><br/>
 							<span>Asst. Mill Composting</span>
 						</div>
-						<div style="width: 20%;float: left; text-align: center;">
+						<div name="4" style="width: 20%;float: left; text-align: center;">
 							<span>Disetujui oleh,</span>
 							<br/><br/><br/><br/><br/><br/><br/>
 							<span style="border-bottom: 2px solid black;"><strong>DADAN RAMDANI</strong></span><br/>
 							<span>Direktur</span>
 						</div>
-						<div style="width: 20%;float: left; text-align: center;">
+						<div name="5" style="width: 20%;float: left; text-align: center;">
 							<span>Diterima oleh,</span>
 							<br/><br/><br/><br/><br/>
 							<span>..........................................</span>
