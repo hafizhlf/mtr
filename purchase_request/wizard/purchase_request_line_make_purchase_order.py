@@ -280,6 +280,7 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
                 line, po_line=po_line, new_pr_line=new_pr_line
             )
             po_line.product_qty = new_qty
+            po_line.price_unit = line.estimated_cost
             # The quantity update triggers a compute method that alters the
             # unit price (which is what we want, to honor graduate pricing)
             # but also the scheduled date which is what we don't want.
