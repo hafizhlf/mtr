@@ -9,7 +9,10 @@
                 <field name="tag_ids" position="after">
                     <field name="maintenance_id"/>
                 </field>
-                <xpath expr="//field[@name='operations']/tree//field[@name='price_subtotal']" position="after">
+                <xpath expr="//field[@name='operations']/tree/field[@name='price_subtotal']" position="after">
+                    <field name="remarks" optional="show"/>
+                </xpath>
+                <xpath expr="//field[@name='fees_lines']/tree/field[@name='price_subtotal']" position="after">
                     <field name="remarks" optional="show"/>
                 </xpath>
                 <page name="extra_info" position="inside">

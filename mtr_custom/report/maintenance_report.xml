@@ -420,6 +420,31 @@
                                                 </t>
                                             </tbody>
                                         </table><br/>
+                                        <div>C. Jasa Service</div><br/>
+                                        <table class="tables" style="width:100%;font-size: 14px;">
+                                            <thead>
+                                                <tr>
+                                                    <td class="tds" width="5%">No</td>
+                                                    <td class="tds" width="25%">Nama Jasa</td>
+                                                    <td class="tds" width="25%">Kode</td>
+                                                    <td class="tds" width="5%">Jumlah</td>
+                                                    <td class="tds" width="40%">Keterangan</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <t t-set="no" t-value="1"/>
+                                                <t t-foreach="repair.fees_lines" t-as="line">
+                                                    <tr>
+                                                        <td class="tds" width="5%"><t t-esc="no"/></td>
+                                                        <td class="tds" width="25%"><t t-esc="line.name"/></td>
+                                                        <td class="tds" width="25%"><t t-esc="line.product_id.default_code"/></td>
+                                                        <td class="tds" width="5%"><t t-esc="line.product_uom_qty"/></td>
+                                                        <td class="tds" width="40%"><t t-esc="line.remarks"/></td>
+                                                        <t t-set="no" t-value="no+1"/>
+                                                    </tr>
+                                                </t>
+                                            </tbody>
+                                        </table><br/>
                                         <div style="page-break-inside: avoid;">
                                             <div>Tanggal : <t t-out="doc.request_date" t-options='{"widget": "date","format": "dd-MM-yyyy"}'/> </div><br/>
                                             <table style="width:100%;font-size: 16px;">
