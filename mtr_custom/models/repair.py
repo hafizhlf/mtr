@@ -18,3 +18,9 @@ class RepairLine(models.Model):
     _inherit = "repair.line"
 
     remarks = fields.Char(string='Remarks')
+
+
+class RepairFee(models.Model):
+    _inherit = "repair.fee"
+
+    remarks = fields.Char(string='Remarks')
