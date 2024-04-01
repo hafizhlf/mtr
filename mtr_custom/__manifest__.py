@@ -13,6 +13,7 @@
         'repair',
         'base_tier_validation',
         'maintenance_tier_validation',
+        'repair_tier_validation',
         'fleet',
         'sign',
     ],
